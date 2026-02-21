@@ -18,6 +18,9 @@ export interface Property {
   title: string
   price: number
   location: string
+  type: 'apartamento' | 'casa' | 'negocio' // added property type
+  province: string
+  canton: string
   area: number
   bedrooms: number
   bathrooms: number
@@ -36,6 +39,9 @@ const mockProperties: Property[] = [
     title: 'Apartamento Moderno en Zona Premium',
     price: 450000,
     location: 'Centro Histórico, Ciudad',
+    type: 'apartamento',
+    province: 'Pichincha',
+    canton: 'Quito',
     area: 120,
     bedrooms: 3,
     bathrooms: 2,
@@ -52,6 +58,9 @@ const mockProperties: Property[] = [
     title: 'Penthouse con Vista Panorámica',
     price: 890000,
     location: 'Distrito Financiero, Ciudad',
+    type: 'apartamento',
+    province: 'Pichincha',
+    canton: 'Quito',
     area: 220,
     bedrooms: 4,
     bathrooms: 3,
@@ -68,6 +77,9 @@ const mockProperties: Property[] = [
     title: 'Casa Familiar con Jardín',
     price: 620000,
     location: 'Residencial Norte, Ciudad',
+    type: 'casa',
+    province: 'Pichincha',
+    canton: 'Quito',
     area: 280,
     bedrooms: 5,
     bathrooms: 4,
@@ -84,6 +96,9 @@ const mockProperties: Property[] = [
     title: 'Loft Industrial Renovado',
     price: 380000,
     location: 'Zona Artística, Ciudad',
+    type: 'apartamento',
+    province: 'Pichincha',
+    canton: 'Quito',
     area: 95,
     bedrooms: 2,
     bathrooms: 2,
@@ -100,6 +115,9 @@ const mockProperties: Property[] = [
     title: 'Apartamento Ejecutivo',
     price: 520000,
     location: 'Chapinero Alto, Ciudad',
+    type: 'apartamento',
+    province: 'Pichincha',
+    canton: 'Quito',
     area: 140,
     bedrooms: 3,
     bathrooms: 3,
@@ -116,6 +134,9 @@ const mockProperties: Property[] = [
     title: 'Villa Mediterránea',
     price: 1200000,
     location: 'Condominio Exclusivo, Afueras',
+    type: 'casa',
+    province: 'Pichincha',
+    canton: 'Quito',
     area: 350,
     bedrooms: 6,
     bathrooms: 5,
@@ -126,6 +147,25 @@ const mockProperties: Property[] = [
     constructionArea: 350,
     age: 'Nuevo',
     coordinates: { lat: 4.7500, lng: -74.0500 }
+  },
+  {
+    id: 7,
+    title: 'Local Comercial en Av. Principal',
+    price: 300000,
+    location: 'Centro Comercial, Ciudad',
+    type: 'negocio',
+    province: 'Guayas',
+    canton: 'Guayaquil',
+    area: 80,
+    bedrooms: 0,
+    bathrooms: 1,
+    description: 'Espacio ideal para tienda o restaurante ubicado en avenida de alto tráfico. Buenos acabados y visibilidad.',
+    images: ['/property-4.jpg'],
+    features: ['Aseo', 'Stock room', 'Vitrinas'],
+    totalArea: 80,
+    constructionArea: 80,
+    age: '10 años',
+    coordinates: { lat: 2.1969, lng: -79.8860 }
   },
 ]
 

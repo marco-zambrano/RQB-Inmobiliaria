@@ -5,6 +5,7 @@ import { Property } from '@/components/properties-section'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
+import { provinciasEcuador } from '@/lib/ecuador'
 
 interface PropertyFiltersProps {
   properties: Property[]
@@ -15,10 +16,20 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
   const [bedrooms, setBedrooms] = useState('all')
-  const [bathrooms, setBathrooms] = useState('all')
+  // removed bathrooms and zone filters per requirements
   const [propertyType, setPropertyType] = useState('all')
-  const [zone, setZone] = useState('all')
+  const [province, setProvince] = useState('all')
+  const [canton, setCanton] = useState('all')
   const [sortBy, setSortBy] = useState('default')
+
+  // derive lists from static data
+  const provinceList = ['all', ...Object.keys(provinciasEcuador)]
+  const cantonList =
+    province !== 'all'
+      ? provinciasEcuador[province] || []
+      : Array.from(
+          new Set(Object.values(provinciasEcuador).flat())
+        )
 
   useEffect(() => {
     let filtered = [...properties]
@@ -36,14 +47,17 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
       filtered = filtered.filter(p => p.bedrooms === Number(bedrooms))
     }
 
-    // Filter by bathrooms
-    if (bathrooms !== 'all') {
-      filtered = filtered.filter(p => p.bathrooms === Number(bathrooms))
+    // Filter by property type
+    if (propertyType !== 'all') {
+      filtered = filtered.filter(p => p.type === propertyType)
     }
 
-    // Filter by zone
-    if (zone !== 'all') {
-      filtered = filtered.filter(p => p.location.toLowerCase().includes(zone.toLowerCase()))
+    // Filter by province/canton
+    if (province !== 'all') {
+      filtered = filtered.filter(p => p.province === province)
+    }
+    if (canton !== 'all') {
+      filtered = filtered.filter(p => p.canton === canton)
     }
 
     // Sort
@@ -54,37 +68,21 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
     }
 
     onFilter(filtered)
-  }, [minPrice, maxPrice, bedrooms, bathrooms, propertyType, zone, sortBy, properties, onFilter])
+  }, [minPrice, maxPrice, bedrooms, propertyType, province, canton, sortBy, properties, onFilter])
 
   return (
     <div className="rounded-lg border bg-card p-4 shadow-sm">
       <div className="flex flex-wrap items-end gap-3">
-        <div className="flex-1 min-w-[140px]">
+          <div className="flex-1 min-w-[140px]">
           <Select value={propertyType} onValueChange={setPropertyType}>
             <SelectTrigger>
               <SelectValue placeholder="Tipo: Todos" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">{'Tipo: Todos'}</SelectItem>
-              <SelectItem value="apartment">{'Apartamento'}</SelectItem>
-              <SelectItem value="house">{'Casa'}</SelectItem>
-              <SelectItem value="penthouse">{'Penthouse'}</SelectItem>
-              <SelectItem value="loft">{'Loft'}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex-1 min-w-[140px]">
-          <Select value={zone} onValueChange={setZone}>
-            <SelectTrigger>
-              <SelectValue placeholder="Zona: Todas" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">{'Zona: Todas'}</SelectItem>
-              <SelectItem value="centro">{'Centro'}</SelectItem>
-              <SelectItem value="norte">{'Norte'}</SelectItem>
-              <SelectItem value="financiero">{'Distrito Financiero'}</SelectItem>
-              <SelectItem value="chapinero">{'Chapinero'}</SelectItem>
+              <SelectItem value="apartamento">{'Apartamento'}</SelectItem>
+              <SelectItem value="casa">{'Casa'}</SelectItem>
+              <SelectItem value="negocio">{'Negocio'}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -123,17 +121,47 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
           </Select>
         </div>
 
+        {/* Province select */}
         <div className="flex-1 min-w-[140px]">
-          <Select value={bathrooms} onValueChange={setBathrooms}>
+          <Select
+            value={province}
+            onValueChange={(val) => {
+              setProvince(val)
+              setCanton('all')
+            }}
+          >
             <SelectTrigger>
-              <SelectValue placeholder="Baños" />
+              <SelectValue placeholder="Selecciona Provincia" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{'Baños'}</SelectItem>
-              <SelectItem value="1">{'1'}</SelectItem>
-              <SelectItem value="2">{'2'}</SelectItem>
-              <SelectItem value="3">{'3'}</SelectItem>
-              <SelectItem value="4">{'4+'}</SelectItem>
+              {provinceList.map((prov) => (
+                <SelectItem key={prov} value={prov}>
+                  {prov === 'all' ? 'Selecciona Provincia' : prov.replace(/_/g, ' ')}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Canton select */}
+        <div className="flex-1 min-w-[140px]">
+          <Select
+            value={canton}
+            onValueChange={setCanton}
+            disabled={province === 'all'}
+          >
+            <SelectTrigger
+              className={province === 'all' ? 'opacity-50 cursor-not-allowed' : ''}
+            >
+            <SelectValue placeholder="Selecciona Cantón" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{'Selecciona Cantón'}</SelectItem>
+              {cantonList.map((c) => (
+                <SelectItem key={c} value={c}>
+                  {c}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

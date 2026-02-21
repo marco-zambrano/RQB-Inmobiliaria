@@ -35,6 +35,13 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
     }).format(price)
   }
 
+  const typeLabelMap: Record<string, string> = {
+    apartamento: 'Apartamento',
+    casa: 'Casa',
+    negocio: 'Negocio',
+  }
+  const typeLabel = typeLabelMap[property.type] || property.type
+
   return (
     <Card 
       className="group overflow-hidden transition-all hover:shadow-xl"
@@ -42,6 +49,10 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+        {/* type pill */}
+        <span className="absolute top-2 left-2 z-10 rounded-full bg-primary px-2 py-1 text-xs font-semibold text-white">
+          {typeLabel}
+        </span>
         <Image
           src={property.images[currentImageIndex]}
           alt={property.title}
