@@ -65,7 +65,7 @@ export function Footer() {
                 <Facebook className="h-5 w-5" />
               </a>
               <a
-                href="mailto:info@eliteproperties.com"
+                href="mailto:robinhood-64@hotmail.com"
                 className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-muted"
               >
                 <Mail className="h-5 w-5" />

@@ -56,9 +56,9 @@ export function ContactSection() {
                   <Mail className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <h3 className="mb-1 font-semibold text-lg">{'Email'}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{'rqb593@gmail.com'}</p>
+                <p className="text-sm text-muted-foreground mb-3">{'robinhood-64@hotmail.com'}</p>
                 <Button asChild className="w-full" size="sm" variant="outline">
-                  <a href="mailto:rqb593@gmail.com">
+                  <a href="mailto:robinhood-64@hotmail.com">
                     {'Enviar Email'}
                   </a>
                 </Button>

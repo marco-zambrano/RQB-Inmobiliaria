@@ -61,7 +61,7 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
     }
 
     // Sort
-    if (sortBy === 'price-asc') {
+    if (sortBy === 'price-asc' || sortBy === 'default') {
       filtered.sort((a, b) => a.price - b.price)
     } else if (sortBy === 'price-desc') {
       filtered.sort((a, b) => b.price - a.price)
@@ -136,7 +136,7 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
             <SelectContent>
               {provinceList.map((prov) => (
                 <SelectItem key={prov} value={prov}>
-                  {prov === 'all' ? 'Selecciona Provincia' : prov.replace(/_/g, ' ')}
+                  {prov === 'all' ? 'Provincia' : prov.replace(/_/g, ' ')}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -172,8 +172,8 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
               <SelectValue placeholder="Ordenar por" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="default">{'Ordenar por'}</SelectItem>
-              <SelectItem value="price-asc">{'Precio: Menor a Mayor'}</SelectItem>
+              {/* <SelectItem value="default">{'Ordenar por'}</SelectItem> */}
+              <SelectItem value="default">{'Precio: Menor a Mayor'}</SelectItem>
               <SelectItem value="price-desc">{'Precio: Mayor a Menor'}</SelectItem>
             </SelectContent>
           </Select>
