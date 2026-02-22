@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Property } from '@/components/properties-section'
+import type { Property } from '@/types/property'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Bed, Bath, Maximize, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -16,17 +16,22 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
 
+  // Safe images array: properties may store images in a separate table
+  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : ['/property-1.jpg']
+  const imagesCount: number = images.length
+
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setCurrentImageIndex((prev) => (prev + 1) % property.images.length)
+    setCurrentImageIndex((prev) => (prev + 1) % imagesCount)
   }
 
   const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)
+    setCurrentImageIndex((prev) => (prev - 1 + imagesCount) % imagesCount)
   }
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price?: number) => {
+    if (price == null) return 'Consultar'
     return new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'USD',
@@ -40,7 +45,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
     casa: 'Casa',
     negocio: 'Negocio',
   }
-  const typeLabel = typeLabelMap[property.type] || property.type
+  const typeLabel = property.property_type ? typeLabelMap[property.property_type.toLowerCase()] || property.property_type : 'Propiedad'
 
   return (
     <Card 
@@ -54,12 +59,12 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
           {typeLabel}
         </span>
         <Image
-          src={property.images[currentImageIndex]}
-          alt={property.title}
+          src={images[currentImageIndex]}
+          alt={property.title ?? 'Propiedad'}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        {isHovered && property.images.length > 1 && (
+        {isHovered && imagesCount > 1 && (
           <div className="absolute inset-0 flex items-center justify-between px-2">
             <Button
               size="icon"
@@ -79,9 +84,9 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
             </Button>
           </div>
         )}
-        {property.images.length > 1 && (
+        {imagesCount > 1 && (
           <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
-            {property.images.map((_, index) => (
+            {images.map((_, index) => (
               <div
                 key={index}
                 className={`h-1.5 w-1.5 rounded-full transition-all ${
@@ -98,13 +103,13 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
           <p className="mb-2 font-[family-name:var(--font-playfair)] text-3xl font-bold text-foreground">
             {formatPrice(property.price)}
           </p>
-          <p className="text-sm text-muted-foreground">{property.location}</p>
+          <p className="text-sm text-muted-foreground">{property.address}</p>
         </div>
 
         <div className="mb-4 flex gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Maximize className="h-4 w-4" />
-            <span>{property.area}m²</span>
+            <span>{property.sqm_total}m²</span>
           </div>
           <div className="flex items-center gap-1">
             <Bed className="h-4 w-4" />

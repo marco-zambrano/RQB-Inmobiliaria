@@ -9,10 +9,12 @@ export function HeroSection() {
     document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })
   }
 
+  const heroUrl = process.env.NEXT_PUBLIC_HERO_IMAGE_URL || 'https://xpznugqofelwvteosjny.supabase.co/storage/v1/object/sign/Pages%20File/hero-property.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xNGFlM2ZmNy1jMDJkLTRmNzUtYWVhYS0wNTY3NzI3YTAxYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQYWdlcyBGaWxlL2hlcm8tcHJvcGVydHkuanBnIiwiaWF0IjoxNzcxNjk1MjI0LCJleHAiOjE3NzI1NTkyMjR9.8omFMbuErCHm6oLfLZYlxP-L_pBq83zd52R3H9zRhXU'
+
   return (
     <section className="relative h-screen w-full overflow-hidden">
       <Image
-        src="https://xpznugqofelwvteosjny.supabase.co/storage/v1/object/sign/Pages%20File/hero-property.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xNGFlM2ZmNy1jMDJkLTRmNzUtYWVhYS0wNTY3NzI3YTAxYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQYWdlcyBGaWxlL2hlcm8tcHJvcGVydHkuanBnIiwiaWF0IjoxNzcxNjk1MjI0LCJleHAiOjE3NzI1NTkyMjR9.8omFMbuErCHm6oLfLZYlxP-L_pBq83zd52R3H9zRhXU"
+        src={heroUrl}
         alt="Propiedad de ejemplo"
         fill
         className="object-cover"
