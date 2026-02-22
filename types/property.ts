@@ -1,11 +1,11 @@
 export interface Property {
     id: number | string;
     title?: string;
-    price?: number;
+    price: number;
     address?: string;
     city?: string;
     province?: string;
-    property_type?: string;
+    property_type: string;
     status?: string;
     sqm_total?: number;
     sqm_built?: number;

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Property } from '@/components/properties-section'
+import { Property } from '@/types/property'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
@@ -49,7 +49,7 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
 
     // Filter by property type
     if (propertyType !== 'all') {
-      filtered = filtered.filter(p => p.type === propertyType)
+      filtered = filtered.filter(p => p.property_type === propertyType)
     }
 
     // Filter by province/canton
@@ -57,7 +57,7 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
       filtered = filtered.filter(p => p.province === province)
     }
     if (canton !== 'all') {
-      filtered = filtered.filter(p => p.canton === canton)
+      filtered = filtered.filter(p => p.city === canton)
     }
 
     // Sort
