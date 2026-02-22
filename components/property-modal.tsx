@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Property } from '@/components/properties-section'
+import type { Property } from '@/types/property'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -20,15 +20,20 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
 
   if (!property) return null
 
+  // Safe images array (properties may have images stored separately)
+  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : ['/property-1.jpg']
+  const imagesCount: number = images.length
+
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % property.images.length)
+    setCurrentImageIndex((prev) => (prev + 1) % imagesCount)
   }
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)
+    setCurrentImageIndex((prev) => (prev - 1 + imagesCount) % imagesCount)
   }
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price?: number) => {
+    if (price == null) return 'Consultar'
     return new Intl.NumberFormat('es-CO', {
       style: 'currency',
       currency: 'USD',
@@ -36,6 +41,8 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
       maximumFractionDigits: 0,
     }).format(price)
   }
+
+  const features: string[] = Array.isArray(property.features) ? property.features : []
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -45,12 +52,12 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
             {/* Image Gallery */}
             <div className="relative aspect-video w-full overflow-hidden bg-muted">
               <Image
-                src={property.images[currentImageIndex]}
-                alt={property.title}
+                src={images[currentImageIndex]}
+                alt={property.title ?? 'Propiedad'}
                 fill
                 className="object-cover"
               />
-              {property.images.length > 1 && (
+              {imagesCount > 1 && (
                 <>
                   <Button
                     size="icon"
@@ -68,8 +75,8 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                   >
                     <ChevronRight className="h-5 w-5" />
                   </Button>
-                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-                    {property.images.map((_, index) => (
+                    <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+                    {images.map((_, index) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
@@ -98,7 +105,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                 </p>
                 <p className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
-                  {property.location}
+                  {`${property.address} - ${property.city}`}
                 </p>
               </div>
 
@@ -108,28 +115,28 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                   <div className="flex items-center justify-center gap-2 text-muted-foreground">
                     <Maximize className="h-5 w-5" />
                   </div>
-                  <p className="mt-1 text-2xl font-bold">{property.area}m²</p>
+                  <p className="mt-1 text-2xl font-bold">{property.sqm_total}m²</p>
                   <p className="text-xs text-muted-foreground">{'Área'}</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-2 text-muted-foreground">
                     <Bed className="h-5 w-5" />
                   </div>
-                  <p className="mt-1 text-2xl font-bold">{property.bedrooms}</p>
+                  <p className="mt-1 text-2xl font-bold">{property.bedrooms ?? '—'}</p>
                   <p className="text-xs text-muted-foreground">{'Habitaciones'}</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-2 text-muted-foreground">
                     <Bath className="h-5 w-5" />
                   </div>
-                  <p className="mt-1 text-2xl font-bold">{property.bathrooms}</p>
+                  <p className="mt-1 text-2xl font-bold">{property.bathrooms ?? '—'}</p>
                   <p className="text-xs text-muted-foreground">{'Baños'}</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center gap-2 text-muted-foreground">
                     <Calendar className="h-5 w-5" />
                   </div>
-                  <p className="mt-1 text-2xl font-bold">{property.age}</p>
+                  <p className="mt-1 text-2xl font-bold">{property.antiquity_years}</p>
                   <p className="text-xs text-muted-foreground">{'Antigüedad'}</p>
                 </div>
               </div>
@@ -146,11 +153,15 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
               <div className="mb-6">
                 <h3 className="mb-3 text-xl font-semibold">{'Características'}</h3>
                 <div className="flex flex-wrap gap-2">
-                  {property.features.map((feature, index) => (
-                    <Badge key={index} variant="secondary" className="px-3 py-1">
-                      {feature}
-                    </Badge>
-                  ))}
+                  {features.length > 0 ? (
+                    features.map((feature, index) => (
+                      <Badge key={index} variant="secondary" className="px-3 py-1">
+                        {feature}
+                      </Badge>
+                    ))
+                  ) : (
+                    <p className="text-sm text-muted-foreground">{'Sin características listadas.'}</p>
+                  )}
                 </div>
               </div>
 
@@ -160,28 +171,34 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                 <div className="grid grid-cols-2 gap-4 rounded-lg border p-4">
                   <div>
                     <p className="text-sm text-muted-foreground">{'Área Total'}</p>
-                    <p className="font-semibold">{property.totalArea}m²</p>
+                    <p className="font-semibold">{property.sqm_total}m²</p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">{'Área Construida'}</p>
-                    <p className="font-semibold">{property.constructionArea}m²</p>
+                    <p className="font-semibold">{property.sqm_built}m²</p>
                   </div>
                 </div>
               </div>
 
-              {/* Map */}
+              {/* Map (optional: render only when coordinates and API key exist) */}
               <div className="mb-6">
                 <h3 className="mb-3 text-xl font-semibold">{'Ubicación'}</h3>
-                <div className="aspect-video w-full overflow-hidden rounded-lg border">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    style={{ border: 0 }}
-                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${property.coordinates.lat},${property.coordinates.lng}&zoom=15`}
-                    allowFullScreen
-                  />
-                </div>
+                {property.latitude != null && property.longitude != null && process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+                  <div className="aspect-video w-full overflow-hidden rounded-lg border">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
+                      style={{ border: 0 }}
+                      src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${property.latitude},${property.longitude}&zoom=15`}
+                      allowFullScreen
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-video w-full overflow-hidden rounded-lg border flex items-center justify-center text-sm text-muted-foreground">
+                    {'Coordenadas no disponibles.'}
+                  </div>
+                )}
               </div>
 
               {/* CTA Button */}
@@ -190,7 +207,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                 className="w-full"
                 asChild
               >
-                <a href={`https://wa.me/1234567890?text=Hola, me interesa la propiedad: ${property.title}`} target="_blank" rel="noopener noreferrer">
+                <a href={`https://wa.me/593999467091?text=Hola, me interesa la propiedad: ${property.title}`} target="_blank" rel="noopener noreferrer">
                   {'Contactar por WhatsApp'}
                 </a>
               </Button>

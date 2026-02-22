@@ -31,14 +31,15 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
   }
 
   const formatPrice = (price?: number) => {
-    if (price == null) return 'Consultar'
-    return new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price)
-  }
+  if (price == null) return 'Consultar'
+
+  return new Intl.NumberFormat('es-EC', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(price)
+}
 
   const typeLabelMap: Record<string, string> = {
     apartamento: 'Apartamento',
@@ -100,10 +101,11 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
 
       <CardContent className="p-6">
         <div className="mb-3">
+          <p className="mb-1 text-xl font-semibold text-foreground">{property.title}</p>
           <p className="mb-2 font-[family-name:var(--font-playfair)] text-3xl font-bold text-foreground">
             {formatPrice(property.price)}
           </p>
-          <p className="text-sm text-muted-foreground">{property.address}</p>
+          <p className="text-sm text-muted-foreground">{`${property.address} - ${property.city}`}</p>
         </div>
 
         <div className="mb-4 flex gap-4 text-sm text-muted-foreground">
@@ -134,7 +136,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
             className="flex-1"
             asChild
           >
-            <a href={`https://wa.me/1234567890?text=Hola, me interesa la propiedad: ${property.title}`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://wa.me/593999467091?text=Hola, me interesa la propiedad: ${property.title}`} target="_blank" rel="noopener noreferrer">
               {'WhatsApp'}
             </a>
           </Button>

@@ -3,7 +3,6 @@ export interface Property {
     title?: string;
     price?: number;
     address?: string;
-    // location?: string;
     city?: string;
     province?: string;
     property_type?: string;
@@ -21,8 +20,6 @@ export interface Property {
     updated_at?: string;
     images?: string[];
     videos?: string[];
-    totalArea?: number;
-    constructionArea?: number;
 }
 
 export type Coordinates = { lat: number; lng: number };
