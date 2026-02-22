@@ -17,7 +17,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   // Safe images array: properties may store images in a separate table
-  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : ['/property-1.jpg']
+  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : ['/-1.jpg']
   const imagesCount: number = images.length
 
   const nextImage = (e: React.MouseEvent) => {

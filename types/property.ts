@@ -18,6 +18,7 @@ export interface Property {
     longitude?: number | null;
     coordinates?: { lat: number; lng: number };
     updated_at?: string;
+    sold_at?: string | null;
     images?: string[];
     videos?: string[];
 }

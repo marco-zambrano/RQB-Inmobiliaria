@@ -41,8 +41,6 @@ export function PropertiesSection({ properties }: { properties?: Property[] }) {
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {currentProperties.map((property) => (
-              console.log('Rendering property card for:', property), // Debug log
-              
               <PropertyCard
                 key={property.id}
                 property={property}
