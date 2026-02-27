@@ -136,7 +136,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                   <div className="flex items-center justify-center gap-2 text-muted-foreground">
                     <Calendar className="h-5 w-5" />
                   </div>
-                  <p className="mt-1 text-2xl font-bold">{property.antiquity_years}</p>
+                  <p className="mt-1 text-2xl font-bold">{property.antiquity_years === 0 ? 'Nueva' : property.antiquity_years}</p>
                   <p className="text-xs text-muted-foreground">{'Antigüedad'}</p>
                 </div>
               </div>
@@ -180,23 +180,23 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                 </div>
               </div>
 
-              {/* Map (optional: render only when coordinates and API key exist) */}
+              {/* Map (optional: render only when map_url exists) */}
               <div className="mb-6">
                 <h3 className="mb-3 text-xl font-semibold">{'Ubicación'}</h3>
-                {property.latitude != null && property.longitude != null && process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? (
+                {property.map_url ? (
                   <div className="aspect-video w-full overflow-hidden rounded-lg border">
                     <iframe
                       width="100%"
                       height="100%"
                       frameBorder="0"
                       style={{ border: 0 }}
-                      src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&q=${property.latitude},${property.longitude}&zoom=15`}
+                      src={property.map_url}
                       allowFullScreen
                     />
                   </div>
                 ) : (
                   <div className="aspect-video w-full overflow-hidden rounded-lg border flex items-center justify-center text-sm text-muted-foreground">
-                    {'Coordenadas no disponibles.'}
+                    {'Mapa no disponible.'}
                   </div>
                 )}
               </div>
