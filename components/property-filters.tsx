@@ -1,18 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Property } from '@/types/property'
+import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { provinciasEcuador } from '@/lib/ecuador'
 
 interface PropertyFiltersProps {
-  properties: Property[]
-  onFilter: (filtered: Property[]) => void
+  onFiltersChange: (filters: {
+    minPrice: string
+    maxPrice: string
+    bedrooms: string
+    propertyType: string
+    province: string
+    canton: string
+    sortBy: string
+  }) => void
 }
 
-export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) {
+export function PropertyFilters({ onFiltersChange }: PropertyFiltersProps) {
   const [minPrice, setMinPrice] = useState('')
   const [maxPrice, setMaxPrice] = useState('')
   const [bedrooms, setBedrooms] = useState('all')
@@ -31,50 +37,27 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
           new Set(Object.values(provinciasEcuador).flat())
         )
 
-  useEffect(() => {
-    let filtered = [...properties]
-
-    // Filter by price
-    if (minPrice) {
-      filtered = filtered.filter(p => p.price >= Number(minPrice))
-    }
-    if (maxPrice) {
-      filtered = filtered.filter(p => p.price <= Number(maxPrice))
-    }
-
-    // Filter by bedrooms
-    if (bedrooms !== 'all') {
-      filtered = filtered.filter(p => p.bedrooms === Number(bedrooms))
-    }
-
-    // Filter by property type
-    if (propertyType !== 'all') {
-      filtered = filtered.filter(p => p.property_type === propertyType)
-    }
-
-    // Filter by province/canton
-    if (province !== 'all') {
-      filtered = filtered.filter(p => p.province === province)
-    }
-    if (canton !== 'all') {
-      filtered = filtered.filter(p => p.city === canton)
-    }
-
-    // Sort
-    if (sortBy === 'price-asc' || sortBy === 'default') {
-      filtered.sort((a, b) => a.price - b.price)
-    } else if (sortBy === 'price-desc') {
-      filtered.sort((a, b) => b.price - a.price)
-    }
-
-    onFilter(filtered)
-  }, [minPrice, maxPrice, bedrooms, propertyType, province, canton, sortBy, properties, onFilter])
+  function handleChange(patch: Partial<{
+    minPrice: string
+    maxPrice: string
+    bedrooms: string
+    propertyType: string
+    province: string
+    canton: string
+    sortBy: string
+  }>) {
+    const next = { minPrice, maxPrice, bedrooms, propertyType, province, canton, sortBy, ...patch }
+    onFiltersChange(next)
+  }
 
   return (
     <div className="rounded-lg border bg-card p-4 shadow-sm">
       <div className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-[140px]">
-          <Select value={propertyType} onValueChange={setPropertyType}>
+          <Select value={propertyType} onValueChange={(val) => {
+            setPropertyType(val)
+            handleChange({ propertyType: val })
+          }}>
             <SelectTrigger>
               <SelectValue placeholder="Tipo: Todos" />
             </SelectTrigger>
@@ -94,7 +77,10 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
             type="number"
             placeholder="Precio mín."
             value={minPrice}
-            onChange={(e) => setMinPrice(e.target.value)}
+            onChange={(e) => {
+              setMinPrice(e.target.value)
+              handleChange({ minPrice: e.target.value })
+            }}
           />
         </div>
 
@@ -103,12 +89,18 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
             type="number"
             placeholder="Precio máx."
             value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
+            onChange={(e) => {
+              setMaxPrice(e.target.value)
+              handleChange({ maxPrice: e.target.value })
+            }}
           />
         </div>
 
         <div className="flex-1 min-w-[140px]">
-          <Select value={bedrooms} onValueChange={setBedrooms}>
+          <Select value={bedrooms} onValueChange={(val) => {
+            setBedrooms(val)
+            handleChange({ bedrooms: val })
+          }}>
             <SelectTrigger>
               <SelectValue placeholder="Habitaciones" />
             </SelectTrigger>
@@ -130,6 +122,7 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
             onValueChange={(val) => {
               setProvince(val)
               setCanton('all')
+              handleChange({ province: val, canton: 'all' })
             }}
           >
             <SelectTrigger>
@@ -149,7 +142,10 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
         <div className="flex-1 min-w-[140px]">
           <Select
             value={canton}
-            onValueChange={setCanton}
+            onValueChange={(val) => {
+              setCanton(val)
+              handleChange({ canton: val })
+            }}
             disabled={province === 'all'}
           >
             <SelectTrigger
@@ -169,7 +165,10 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
         </div>
 
         <div className="flex-1 min-w-[160px]">
-          <Select value={sortBy} onValueChange={setSortBy}>
+          <Select value={sortBy} onValueChange={(val) => {
+            setSortBy(val)
+            handleChange({ sortBy: val })
+          }}>
             <SelectTrigger>
               <SelectValue placeholder="Ordenar por" />
             </SelectTrigger>

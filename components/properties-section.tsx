@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { PropertyCard } from '@/components/property-card'
 import { PropertyFilters } from '@/components/property-filters'
 import { PropertyModal } from '@/components/property-modal'
@@ -15,11 +15,69 @@ import {
 } from '@/components/ui/pagination'
 
 export function PropertiesSection({ properties }: { properties?: Property[] }) {
+  console.log('PropertiesSection received:', properties)
+  
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
-  const initial = properties && properties.length > 0 ? properties : []
-  const [filteredProperties, setFilteredProperties] = useState(initial)
+  const [filters, setFilters] = useState({
+    minPrice: '',
+    maxPrice: '',
+    bedrooms: 'all',
+    propertyType: 'all',
+    province: 'all',
+    canton: 'all',
+    sortBy: 'default'
+  })
+
+  const initial = useMemo(() => {
+    const result = properties && properties.length > 0 ? properties : []
+    console.log('Initial properties after useMemo:', result)
+    return result
+  }, [properties])
   const [currentPage, setCurrentPage] = useState(1)
   const propertiesPerPage = 6
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [filters])
+
+  const filteredProperties = useMemo(() => {
+    let result = [...initial]
+
+    // Filter by price
+    if (filters.minPrice) {
+      result = result.filter(p => p.price >= Number(filters.minPrice))
+    }
+    if (filters.maxPrice) {
+      result = result.filter(p => p.price <= Number(filters.maxPrice))
+    }
+
+    // Filter by bedrooms
+    if (filters.bedrooms !== 'all') {
+      result = result.filter(p => p.bedrooms === Number(filters.bedrooms))
+    }
+
+    // Filter by property type
+    if (filters.propertyType !== 'all') {
+      result = result.filter(p => p.property_type === filters.propertyType)
+    }
+
+    // Filter by province/canton
+    if (filters.province !== 'all') {
+      result = result.filter(p => p.province === filters.province)
+    }
+    if (filters.canton !== 'all') {
+      result = result.filter(p => p.city === filters.canton)
+    }
+
+    // Sort
+    if (filters.sortBy === 'price-asc' || filters.sortBy === 'default') {
+      result.sort((a, b) => a.price - b.price)
+    } else if (filters.sortBy === 'price-desc') {
+      result.sort((a, b) => b.price - a.price)
+    }
+
+    return result
+  }, [initial, filters])
 
   const indexOfLastProperty = currentPage * propertiesPerPage
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage
@@ -35,8 +93,7 @@ export function PropertiesSection({ properties }: { properties?: Property[] }) {
           </h2>
 
           <PropertyFilters 
-            properties={initial}
-            onFilter={setFilteredProperties}
+            onFiltersChange={setFilters}
           />
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
