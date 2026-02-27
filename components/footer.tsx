@@ -1,6 +1,6 @@
 'use client'
 
-import { Instagram, Facebook, Mail } from 'lucide-react'
+import { Facebook, Mail } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -31,16 +31,6 @@ export function Footer() {
                   {'Contacto'}
                 </a>
               </li>
-              {/* <li>
-                <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-                  {'Sobre Nosotros'}
-                </a>
-              </li> */}
-              {/* <li>
-                <a href="#" className="text-muted-foreground transition-colors hover:text-foreground">
-                  {'Servicios'}
-                </a>
-              </li> */}
             </ul>
           </div>
 
@@ -48,14 +38,6 @@ export function Footer() {
           <div>
             <h4 className="mb-4 font-semibold">{'Redes Sociales'}</h4>
             <div className="flex gap-3">
-              {/* <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-muted"
-              >
-                <Instagram className="h-5 w-5" />
-              </a> */}
               <a
                 href="https://www.facebook.com/profile.php?id=100067704142172"
                 target="_blank"

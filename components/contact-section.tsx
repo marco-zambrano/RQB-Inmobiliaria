@@ -4,17 +4,8 @@ import { Mail, Phone, Clock, Facebook, Send, type LucideIcon } from 'lucide-reac
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 
-/*
- * -------------------------------------------------------
- * Para agregar una nueva red social, solo agrega un objeto
- * al array SOCIAL_LINKS con: label, href, icon.
- * El layout se adapta automaticamente.
- * -------------------------------------------------------
- */
 const SOCIAL_LINKS: { label: string; href: string; icon: LucideIcon }[] = [
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=100067704142172', icon: Facebook },
-  // { label: 'Instagram', href: 'https://instagram.com', icon: Instagram },
-  // { label: 'Twitter', href: 'https://twitter.com', icon: Twitter },
 ]
 
 export function ContactSection() {
@@ -30,10 +21,7 @@ export function ContactSection() {
           </p>
         </div>
 
-        {/* Two-column layout: Contact cards (left) + CTA (right) */}
-        {/* use auto sizing for right column so the CTA card only takes the space it needs */}
         <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-          {/* Left: Contact cards stacked */}
           <div className="flex flex-col gap-4">
             <Card className="border-2 transition-all hover:shadow-lg hover:scale-[1.02]">
               <CardContent className="p-5 text-center">
@@ -71,14 +59,12 @@ export function ContactSection() {
                   <Clock className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <h3 className="mb-1 font-semibold text-lg">{'Horario'}</h3>
-                <p className="text-sm text-muted-foreground">{'Lun - Vie: 9:00 AM - 6:00 PM'}</p>
-                <p className="text-sm text-muted-foreground">{'Sábados: 10:00 AM - 2:00 PM'}</p>
+                <p className="text-sm text-muted-foreground">{'Lun - Vie: 8:00 AM - 8:00 PM'}</p>
+                <p className="text-sm text-muted-foreground">{'Sábados: 9:00 AM - 8:00 PM'}</p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Right: CTA + Social */}
-          {/* card is wrapped in a fit-width container and centered */}
           <Card className="bg-card/50 backdrop-blur w-fit mx-auto">
             <CardContent className="p-8 flex flex-col items-center justify-center text-center">
               <Send className="mb-4 h-10 w-10 text-primary" />
@@ -93,7 +79,6 @@ export function ContactSection() {
                 </a>
               </Button>
 
-              {/* Social links - flexible row that adapts to any number */}
               {SOCIAL_LINKS.length > 0 && (
                 <div className="w-full border-t pt-6">
                   <p className="mb-4 text-sm font-medium text-muted-foreground">

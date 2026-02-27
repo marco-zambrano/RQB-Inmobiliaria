@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Lora, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 
 import './globals.css'
 
@@ -13,16 +13,9 @@ const playfair = Playfair_Display({
   variable: '--font-playfair'
 })
 
-// const lora = Lora({
-//   subsets: ["latin"],
-//   variable: "--font-lora",
-// })
-
-
 export const metadata: Metadata = {
   title: 'RQB 593 - Bienes Raíces Premium',
-  description: 'Las mejores propiedades en las zonas más exclusivas',
-  generator: 'v0.app',
+  description: 'Las mejores propiedades en las zonas más exclusivas'
 }
 
 export default function RootLayout({

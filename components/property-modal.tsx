@@ -17,6 +17,7 @@ interface PropertyModalProps {
 
 export function PropertyModal({ property, open, onOpenChange }: PropertyModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
 
   if (!property) return null
 
@@ -32,9 +33,21 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
     setCurrentImageIndex((prev) => (prev - 1 + imagesCount) % imagesCount)
   }
 
+  // Safe videos array (properties may have videos stored separately)
+  const videos: string[] = Array.isArray(property.videos) && property.videos.length > 0 ? property.videos as string[] : []
+  const videosCount: number = videos.length
+
+  const nextVideo = () => {
+    setCurrentVideoIndex((prev) => (prev + 1) % videosCount)
+  }
+
+  const prevVideo = () => {
+    setCurrentVideoIndex((prev) => (prev - 1 + videosCount) % videosCount)
+  }
+
   const formatPrice = (price?: number) => {
     if (price == null) return 'Consultar'
-    return new Intl.NumberFormat('es-CO', {
+    return new Intl.NumberFormat('es-EC', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
@@ -180,7 +193,48 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                 </div>
               </div>
 
-              {/* Map (optional: render only when map_url exists) */}
+              {/* Videos */}
+              {videosCount > 0 && (
+                <div className="mb-6">
+                  <h3 className="mb-3 text-xl font-semibold">{'Videos'}</h3>
+                  <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
+                    <video
+                      key={videos[currentVideoIndex]}
+                      className="h-full w-full object-cover"
+                      controls
+                      preload="metadata"
+                    >
+                      <source src={videos[currentVideoIndex]} type="video/mp4" />
+                      {'Tu navegador no soporta el elemento de video.'}
+                    </video>
+                    
+                    {/* Video Navigation */}
+                    {videosCount > 1 && (
+                      <>
+                        <button
+                          onClick={prevVideo}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-opacity hover:bg-black/70"
+                          aria-label="Video anterior"
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={nextVideo}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white transition-opacity hover:bg-black/70"
+                          aria-label="Siguiente video"
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-xs text-white">
+                          {currentVideoIndex + 1} / {videosCount}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Map */}
               <div className="mb-6">
                 <h3 className="mb-3 text-xl font-semibold">{'Ubicación'}</h3>
                 {property.map_url ? (
@@ -188,7 +242,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                     <iframe
                       width="100%"
                       height="100%"
-                      frameBorder="0"
+                      title="Mapa"
                       style={{ border: 0 }}
                       src={property.map_url}
                       allowFullScreen
@@ -201,7 +255,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
                 )}
               </div>
 
-              {/* CTA Button */}
+              {/* WhatsApp Button */}
               <Button 
                 size="lg" 
                 className="w-full"

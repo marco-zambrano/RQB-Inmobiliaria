@@ -15,7 +15,7 @@ export function HeroSection() {
     <section className="relative h-screen w-full overflow-hidden">
       <Image
         src={heroUrl}
-        alt="Propiedad de ejemplo"
+        alt="Propiedad de fondo"
         fill
         className="object-cover"
         priority
@@ -58,7 +58,7 @@ export function HeroSection() {
 
         <button
           onClick={scrollToProperties}
-          className="absolute bottom-12 flex flex-col items-center gap-2 transition-transform hover:scale-110"
+          className="absolute bottom-12 flex flex-col items-center gap-2 transition-transform hover:scale-105"
           aria-label="Scroll to properties"
         >
           <span className="text-sm uppercase tracking-wider">

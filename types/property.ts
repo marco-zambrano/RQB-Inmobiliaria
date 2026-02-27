@@ -1,10 +1,10 @@
 export interface Property {
-    id: number | string;
-    title?: string;
+    id: string;
+    title: string;
     price: number;
-    address?: string;
-    city?: string;
-    province?: string;
+    address: string;
+    city: string;
+    province: string;
     property_type: string;
     status?: string;
     sqm_total?: number;
@@ -12,16 +12,11 @@ export interface Property {
     bedrooms?: number;
     bathrooms?: number;
     antiquity_years?: number | string;
-    description?: string;
+    description: string;
     features?: string[];
-    latitude?: number | null;
-    longitude?: number | null;
-    coordinates?: { lat: number; lng: number };
-    updated_at?: string;
+    interest_level?: number;
     sold_at?: string | null;
     images?: string[];
     videos?: string[];
     map_url?: string;
 }
-
-export type Coordinates = { lat: number; lng: number };

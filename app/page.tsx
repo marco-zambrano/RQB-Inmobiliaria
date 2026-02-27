@@ -45,25 +45,9 @@ async function fetchProperties(): Promise<Property[]> {
   }
 }
 
-async function fetchSoldProperties(): Promise<Property[]> {
-  try {
-    const { data } = await supabase
-      .from('properties')
-      .select('*')
-      .eq('status', 'vendida')
-      .order('sold_at', { ascending: false, nullsFirst: false })
-
-    return fetchWithImages(data || [])
-  } catch (e) {
-    console.error('Error fetching sold properties', e)
-    return []
-  }
-}
-
 export default async function Page() {
-  const [properties, soldProperties] = await Promise.all([
+  const [properties] = await Promise.all([
     fetchProperties(),
-    fetchSoldProperties(),
   ])
 
   return (
@@ -71,10 +55,8 @@ export default async function Page() {
       <HeroSection />
       {/* <AboutSection /> */}
       <PropertiesSection properties={properties} />
-      {/* <SoldPropertiesSection properties={soldProperties} /> */}
       <ContactSection />
       <Footer />
-      {/* <WhatsAppButton /> */}
     </main>
   )
 }

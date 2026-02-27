@@ -44,7 +44,9 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
   const typeLabelMap: Record<string, string> = {
     apartamento: 'Apartamento',
     casa: 'Casa',
-    negocio: 'Negocio',
+    local: 'Local',
+    terreno: 'Terreno',
+    casaRentera: 'Casa Rentera',
   }
   const typeLabel = property.property_type ? typeLabelMap[property.property_type.toLowerCase()] || property.property_type : 'Propiedad'
 
