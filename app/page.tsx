@@ -24,9 +24,23 @@ async function fetchWithImages(properties: any[]): Promise<Property[]> {
     }
   }
 
+  const { data: videos } = await supabase
+    .from('property_videos')
+    .select('property_id, video_url')
+    .in('property_id', ids)
+
+  const videosByProperty: Record<string, string[]> = {}
+  if (videos) {
+    for (const vid of videos as any[]) {
+      if (!videosByProperty[vid.property_id]) videosByProperty[vid.property_id] = []
+      videosByProperty[vid.property_id].push(vid.video_url)
+    }
+  }
+
   return (properties as any[]).map((p) => ({
     ...p,
     images: imagesByProperty[p.id] || [],
+    videos: videosByProperty[p.id] || [],
   }))
 }
 
