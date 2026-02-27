@@ -111,7 +111,17 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
         <div className="mb-4 flex gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
             <Maximize className="h-4 w-4" />
-            <span>{property.sqm_total}m²</span>
+            <div>
+              <span className="font-medium">{property.sqm_total}m²</span>
+              <span className="text-xs block">Total</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1">
+            <Maximize className="h-4 w-4 opacity-70" />
+            <div>
+              <span className="font-medium">{property.sqm_built}m²</span>
+              <span className="text-xs block">Construido</span>
+            </div>
           </div>
           <div className="flex items-center gap-1">
             <Bed className="h-4 w-4" />
