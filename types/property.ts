@@ -21,6 +21,7 @@ export interface Property {
     sold_at?: string | null;
     images?: string[];
     videos?: string[];
+    map_url?: string;
 }
 
 export type Coordinates = { lat: number; lng: number };
