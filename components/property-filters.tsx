@@ -82,7 +82,9 @@ export function PropertyFilters({ properties, onFilter }: PropertyFiltersProps) 
               <SelectItem value="all">{'Tipo: Todos'}</SelectItem>
               <SelectItem value="apartamento">{'Apartamento'}</SelectItem>
               <SelectItem value="casa">{'Casa'}</SelectItem>
-              <SelectItem value="negocio">{'Negocio'}</SelectItem>
+              <SelectItem value="local">{'Local'}</SelectItem>
+              <SelectItem value="casa rentera">{'Casa Rentera'}</SelectItem>
+              <SelectItem value="terreno">{'Terreno'}</SelectItem>
             </SelectContent>
           </Select>
         </div>
