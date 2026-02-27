@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card'
  * -------------------------------------------------------
  */
 const SOCIAL_LINKS: { label: string; href: string; icon: LucideIcon }[] = [
-  { label: 'Facebook', href: 'https://facebook.com', icon: Facebook },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=100067704142172', icon: Facebook },
   // { label: 'Instagram', href: 'https://instagram.com', icon: Instagram },
   // { label: 'Twitter', href: 'https://twitter.com', icon: Twitter },
 ]

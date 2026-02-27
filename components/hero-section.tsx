@@ -24,7 +24,7 @@ export function HeroSection() {
       
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
         <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-7xl">
-          RQB593
+          RQB-593
         </h1>
         <p className="mb-2 max-w-2xl text-xl md:text-2xl text-balance">
           {'Encontramos la propiedad perfecta para tu estilo de vida'}

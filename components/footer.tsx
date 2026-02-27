@@ -57,7 +57,7 @@ export function Footer() {
                 <Instagram className="h-5 w-5" />
               </a> */}
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=100067704142172"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-muted"

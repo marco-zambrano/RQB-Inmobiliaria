@@ -101,7 +101,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
 
       <CardContent className="p-6">
         <div className="mb-3">
-          <p className="mb-1 text-xl font-semibold text-foreground">{property.title}</p>
+          <p className="mb-1 font-[family-name:var(--font-playfair)] text-2xl font-semibold text-foreground">{property.title}</p>
           <p className="mb-2 font-[family-name:var(--font-playfair)] text-3xl font-bold text-foreground">
             {formatPrice(property.price)}
           </p>
