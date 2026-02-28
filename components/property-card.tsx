@@ -4,8 +4,9 @@ import { useState } from 'react'
 import type { Property } from '@/types/property'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Bed, Bath, Maximize, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Bed, Bath, Maximize, ChevronLeft, ChevronRight, Heart } from 'lucide-react'
 import Image from 'next/image'
+import { supabase } from '@/lib/supabaseClient'
 
 interface PropertyCardProps {
   property: Property
@@ -15,6 +16,29 @@ interface PropertyCardProps {
 export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
+
+  const incrementInterest = async (propertyId: string) => {
+    try {
+      const { error } = await supabase.rpc('increment_property_interest', {
+        p_property_id: propertyId
+      })
+      
+      if (error) {
+        console.error('Error incrementing interest:', error)
+      } else {
+        console.log('Interest incremented successfully for property:', propertyId)
+      }
+    } catch (error) {
+      console.error('Error calling increment_property_interest:', error)
+    }
+  }
+
+  const handleViewMore = () => {
+    // Increment interest level
+    incrementInterest(property.id)
+    // Call original onViewMore function
+    onViewMore()
+  }
 
   // Safe images array: properties may store images in a separate table
   const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : []
@@ -142,6 +166,10 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
             <Bath className="h-4 w-4" />
             <span>{property.bathrooms}</span>
           </div>
+          <div className="flex items-center gap-1">
+            <Heart className="h-4 w-4 text-red-500" />
+            <span className="text-red-500 font-medium">{property.interest_level || 0}</span>
+          </div>
         </div>
 
         <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
@@ -149,7 +177,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
         </p>
 
         <div className="flex gap-2">
-          <Button onClick={onViewMore} className="flex-1">
+          <Button onClick={handleViewMore} className="flex-1">
             {'Ver más'}
           </Button>
           <Button

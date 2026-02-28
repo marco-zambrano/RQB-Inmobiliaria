@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/pagination'
 
 export function PropertiesSection({ properties }: { properties?: Property[] }) {
-  console.log('PropertiesSection received:', properties)
+  // console.log('PropertiesSection received:', properties)
   
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [filters, setFilters] = useState({
