@@ -22,7 +22,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
   if (!property) return null
 
   // Safe images array (properties may have images stored separately)
-  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : ['/property-1.jpg']
+  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : []
   const imagesCount: number = images.length
 
   const nextImage = () => {
@@ -64,12 +64,21 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
           <div className="relative">
             {/* Image Gallery */}
             <div className="relative aspect-video w-full overflow-hidden bg-muted">
-              <Image
-                src={images[currentImageIndex]}
-                alt={property.title ?? 'Propiedad'}
-                fill
-                className="object-cover"
-              />
+              {imagesCount > 0 ? (
+                <Image
+                  src={images[currentImageIndex]}
+                  alt={property.title ?? 'Propiedad'}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full text-muted-foreground">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🏠</div>
+                    <p>No hay imágenes disponibles</p>
+                  </div>
+                </div>
+              )}
               {imagesCount > 1 && (
                 <>
                   <Button

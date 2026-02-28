@@ -30,7 +30,7 @@ export function PropertiesSection({ properties }: { properties?: Property[] }) {
 
   const initial = useMemo(() => {
     const result = properties && properties.length > 0 ? properties : []
-    console.log('Initial properties after useMemo:', result)
+    // console.log('Initial properties after useMemo:', result)
     return result
   }, [properties])
   const [currentPage, setCurrentPage] = useState(1)

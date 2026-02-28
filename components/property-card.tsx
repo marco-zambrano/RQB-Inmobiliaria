@@ -17,7 +17,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   // Safe images array: properties may store images in a separate table
-  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : ['/-1.jpg']
+  const images: string[] = Array.isArray(property.images) && property.images.length > 0 ? property.images as string[] : []
   const imagesCount: number = images.length
 
   const nextImage = (e: React.MouseEvent) => {
@@ -61,12 +61,21 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
         <span className="absolute top-2 left-2 z-10 rounded-full bg-primary px-2 py-1 text-xs font-semibold text-white">
           {typeLabel}
         </span>
-        <Image
-          src={images[currentImageIndex]}
-          alt={property.title ?? 'Propiedad'}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        {imagesCount > 0 ? (
+          <Image
+            src={images[currentImageIndex]}
+            alt={property.title ?? 'Propiedad'}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full text-muted-foreground">
+            <div className="text-center">
+              <div className="text-4xl mb-2">🏠</div>
+              <p className="text-sm">No hay imágenes</p>
+            </div>
+          </div>
+        )}
         {isHovered && imagesCount > 1 && (
           <div className="absolute inset-0 flex items-center justify-between px-2">
             <Button
