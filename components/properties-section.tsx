@@ -15,8 +15,6 @@ import {
 } from '@/components/ui/pagination'
 
 export function PropertiesSection({ properties }: { properties?: Property[] }) {
-  // console.log('PropertiesSection received:', properties)
-  
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [filters, setFilters] = useState({
     minPrice: '',
@@ -30,7 +28,6 @@ export function PropertiesSection({ properties }: { properties?: Property[] }) {
 
   const initial = useMemo(() => {
     const result = properties && properties.length > 0 ? properties : []
-    // console.log('Initial properties after useMemo:', result)
     return result
   }, [properties])
   const [currentPage, setCurrentPage] = useState(1)

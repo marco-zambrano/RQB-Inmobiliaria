@@ -166,10 +166,6 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
             <Bath className="h-4 w-4" />
             <span>{property.bathrooms}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Heart className="h-4 w-4 text-red-500" />
-            <span className="text-red-500 font-medium">{property.interest_level || 0}</span>
-          </div>
         </div>
 
         <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
