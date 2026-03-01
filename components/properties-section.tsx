@@ -111,7 +111,9 @@ export function PropertiesSection({ properties }: { properties?: Property[] }) {
                     <PaginationPrevious
                       onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                       className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
-                    />
+                    >
+                      Anterior
+                    </PaginationPrevious>
                   </PaginationItem>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <PaginationItem key={page}>
@@ -128,7 +130,9 @@ export function PropertiesSection({ properties }: { properties?: Property[] }) {
                     <PaginationNext
                       onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                       className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
-                    />
+                    >
+                      Siguiente
+                    </PaginationNext>
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>

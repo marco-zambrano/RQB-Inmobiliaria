@@ -131,7 +131,7 @@ export function PropertyFilters({ onFiltersChange }: PropertyFiltersProps) {
             <SelectContent>
               {provinceList.map((prov) => (
                 <SelectItem key={prov} value={prov}>
-                  {prov === 'all' ? 'Provincia' : prov.replace(/_/g, ' ')}
+                  {prov === 'all' ? 'Selec.. Provincia' : prov.replace(/_/g, ' ')}
                 </SelectItem>
               ))}
             </SelectContent>
