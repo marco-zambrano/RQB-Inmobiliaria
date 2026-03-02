@@ -25,8 +25,6 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
       
       if (error) {
         console.error('Error incrementing interest:', error)
-      } else {
-        console.log('Interest incremented successfully for property:', propertyId)
       }
     } catch (error) {
       console.error('Error calling increment_property_interest:', error)
