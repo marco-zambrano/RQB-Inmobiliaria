@@ -1,11 +1,12 @@
-'use server'
-
 import { HeroSection } from '@/components/hero-section'
 import { PropertiesSection } from '@/components/properties-section'
 import { ContactSection } from '@/components/contact-section'
 import { Footer } from '@/components/footer'
 import { supabase } from '@/lib/supabaseClient'
 import type { Property } from '@/types/property'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 async function fetchProperties(): Promise<Property[]> {
   try {
