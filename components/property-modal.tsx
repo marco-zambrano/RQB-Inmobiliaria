@@ -166,7 +166,7 @@ export function PropertyModal({ property, open, onOpenChange }: PropertyModalPro
               {/* Description */}
               <div className="mb-6">
                 <h3 className="mb-3 text-xl font-semibold">{'Descripción'}</h3>
-                <p className="leading-relaxed text-muted-foreground">
+                <p className="leading-relaxed text-muted-foreground whitespace-pre-line">
                   {property.description}
                 </p>
               </div>

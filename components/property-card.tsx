@@ -166,7 +166,7 @@ export function PropertyCard({ property, onViewMore }: PropertyCardProps) {
           </div>
         </div>
 
-        <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+        <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground whitespace-pre-line">
           {property.description}
         </p>
 
