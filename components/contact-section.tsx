@@ -29,9 +29,9 @@ export function ContactSection() {
                   <Phone className="h-6 w-6 text-primary-foreground" />
                 </div>
                 <h3 className="mb-1 font-semibold text-lg">{'WhatsApp'}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{'+57 123 456 7890'}</p>
+                <p className="text-sm text-muted-foreground mb-3">{'+593 99 946 7091'}</p>
                 <Button asChild className="w-full" size="sm">
-                  <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/593999467091" target="_blank" rel="noopener noreferrer">
                     {'Enviar Mensaje'}
                   </a>
                 </Button>
