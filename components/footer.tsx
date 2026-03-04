@@ -1,12 +1,15 @@
 'use client'
 
 import { Facebook, Mail } from 'lucide-react'
+import Image from 'next/image'
 
 export function Footer() {
+  const acbirLogo = process.env.NEXT_PUBLIC_LOGO_URL || 'https://xpznugqofelwvteosjny.supabase.co/storage/v1/object/sign/rqb-bucket/acbir.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xNGFlM2ZmNy1jMDJkLTRmNzUtYWVhYS0wNTY3NzI3YTAxYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJycWItYnVja2V0L2FjYmlyLnBuZyIsImlhdCI6MTc3MjY2MDYwNCwiZXhwIjoxODM1NzMyNjA0fQ.W5NcD7y12Pp_Me71csPC7zc69OMGhxW9VT_9mYuUseo'
+
   return (
     <footer className="border-t bg-card py-12 px-4">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-8 md:grid-cols-4">
           {/* Company Info */}
           <div>
             <h3 className="mb-4  text-2xl font-bold">
@@ -18,7 +21,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className='ml-5'>
             <h4 className="mb-4 font-semibold">{'Enlaces Rápidos'}</h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -33,6 +36,19 @@ export function Footer() {
               </li>
             </ul>
           </div>
+          {/* ACBIR LOGO and LICENSE */}
+          <div className="flex flex-col">
+              <Image
+                src={acbirLogo}
+                alt="ACBIR Logo"
+                width={100}
+                height={100}
+              />
+              <div className="text-sm text-muted-foreground font-semibold">
+                <p>Lic.prof.#689-G</p>
+                <p>MIPRO N: 18094</p>
+              </div>
+            </div>
 
           {/* Social */}
           <div>

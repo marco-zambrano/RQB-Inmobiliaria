@@ -10,6 +10,7 @@ export function HeroSection() {
   }
 
   const heroUrl = process.env.NEXT_PUBLIC_HERO_IMAGE_URL || 'https://xpznugqofelwvteosjny.supabase.co/storage/v1/object/sign/Pages%20File/hero-property.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xNGFlM2ZmNy1jMDJkLTRmNzUtYWVhYS0wNTY3NzI3YTAxYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQYWdlcyBGaWxlL2hlcm8tcHJvcGVydHkuanBnIiwiaWF0IjoxNzcxNjk1MjI0LCJleHAiOjE3NzI1NTkyMjR9.8omFMbuErCHm6oLfLZYlxP-L_pBq83zd52R3H9zRhXU'
+  const logoUrl = process.env.NEXT_PUBLIC_LOGO_URL || 'https://xpznugqofelwvteosjny.supabase.co/storage/v1/object/sign/rqb-bucket/rqb-icon.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8xNGFlM2ZmNy1jMDJkLTRmNzUtYWVhYS0wNTY3NzI3YTAxYzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJycWItYnVja2V0L3JxYi1pY29uLnBuZyIsImlhdCI6MTc3MjY2MDAyMiwiZXhwIjoxODM1NzMyMDIyfQ.RauG3DG7rCuc1TGp0FSDnAiCDqE5__bm1SkTJgf9RKM'
 
   return (  
     <section className="relative h-screen w-full overflow-hidden">
@@ -23,6 +24,17 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
       
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white">
+        
+        <div className="mb-4">
+          <Image
+            src={logoUrl}
+            alt="RQB-593 Inmobiliaria Logo"
+            width={120}
+            height={120}
+            className="rounded-lg shadow-lg"
+          />
+        </div>
+        
         <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-7xl">
           RQB-593
         </h1>
@@ -58,7 +70,7 @@ export function HeroSection() {
 
         <button
           onClick={scrollToProperties}
-          className="absolute bottom-12 flex flex-col items-center gap-2 transition-transform hover:scale-105"
+          className="absolute bottom-2 flex flex-col items-center gap-2 transition-transform hover:scale-105"
           aria-label="Scroll to properties"
         >
           <span className="text-sm uppercase tracking-wider">
