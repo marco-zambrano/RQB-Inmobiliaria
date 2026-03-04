@@ -8,10 +8,23 @@ node_modules/
 .next/
 .env*.local
 .DS_Store
-public/
-dist/
+# public/ - uncomment if you want to ignore all public files
+# dist/
 build/
 coverage/
 *.log
 *.tsbuildinfo
 *.lock
+
+# Allow specific public files for SEO
+!public/robots.txt
+!public/sitemap.xml
+!public/hero-property.jpg
+!public/placeholder-logo.png
+!public/placeholder-logo.svg
+!public/placeholder-user.jpg
+!public/placeholder.jpg
+!public/placeholder.svg
+!public/property-1.jpg
+!public/property-2.jpg
+!public/property-3.jpg
