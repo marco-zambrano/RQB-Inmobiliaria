@@ -10,7 +10,7 @@ export function Footer() {
           {/* Company Info */}
           <div>
             <h3 className="mb-4  text-2xl font-bold">
-              {'RQB 593'}
+              {'RQB-593 Inmobiliaria'}
             </h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
               {'Tu socio de confianza en bienes raíces. Conectando personas con las propiedades de sus sueños.'}
