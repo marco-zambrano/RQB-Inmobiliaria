@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className="border-t bg-card py-12 px-4">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-8 md:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-4 text-center md:text-left">
           {/* Company Info */}
           <div>
             <h3 className="mb-4  text-2xl font-bold">
@@ -21,7 +21,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className='ml-5'>
+          <div className='md:ml-5'>
             <h4 className="mb-4 font-semibold">{'Enlaces Rápidos'}</h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -37,7 +37,7 @@ export function Footer() {
             </ul>
           </div>
           {/* ACBIR LOGO and LICENSE */}
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center md:items-start">
               <Image
                 src={acbirLogo}
                 alt="ACBIR Logo"
@@ -51,7 +51,7 @@ export function Footer() {
             </div>
 
           {/* Social */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="mb-4 font-semibold">{'Redes Sociales'}</h4>
             <div className="flex gap-3">
               <a
