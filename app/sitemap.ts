@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { supabase } from '@/lib/supabaseClient'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://rqb-593.vercel.app'
+  const baseUrl = 'https://rqb-593.com'
   
   // Static pages
   const staticPages = [

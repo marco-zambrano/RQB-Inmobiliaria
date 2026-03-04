@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://rqb-593.vercel.app/sitemap.xml
+Sitemap: https://rqb-593.com/sitemap.xml
 
 # Block common bot paths
 Disallow: /api/

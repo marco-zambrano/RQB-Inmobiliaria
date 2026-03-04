@@ -4,7 +4,7 @@ export default function StructuredData() {
     "@type": "RealEstateAgent",
     "name": "RQB-593 Inmobiliaria",
     "description": "Inmobiliaria especializada en propiedades en Manta y Manabí, Ecuador. Encuentra las mejores propiedades para comprar, vender y alquilar.",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://rqb-593.vercel.app",
+    "url": "https://rqb-593.com",
     "telephone": "+593999467091",
     "email": "robinhood-64@hotmail.com",
     "address": {
